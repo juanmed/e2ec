@@ -11,6 +11,7 @@ class Network(nn.Module):
         head_conv = cfg.model.head_conv
         down_ratio = cfg.commen.down_ratio
         heads = cfg.model.heads
+        use_dcn = cfg.model.use_dcn
         self.test_stage = cfg.test.test_stage
 
         self.dla = DLASeg('dla{}'.format(num_layers), heads,
@@ -18,7 +19,8 @@ class Network(nn.Module):
                           down_ratio=down_ratio,
                           final_kernel=1,
                           last_level=5,
-                          head_conv=head_conv)
+                          head_conv=head_conv,
+                          use_dcn=use_dcn)
         self.train_decoder = Decode(num_point=cfg.commen.points_per_poly, init_stride=cfg.model.init_stride,
                                     coarse_stride=cfg.model.coarse_stride, down_sample=cfg.commen.down_ratio,
                                     min_ct_score=cfg.test.ct_score)

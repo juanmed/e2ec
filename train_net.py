@@ -27,6 +27,7 @@ def get_cfg(args):
         cfg.train.batch_size = int(args.bs)
     if args.dml != 'True':
         cfg.train.with_dml = False
+    cfg.model.use_dcn = False
     return cfg
 
 def train(network, cfg):

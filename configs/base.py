@@ -32,7 +32,7 @@ class data(object):
 class model(object):
     dla_layer = 34
     head_conv = 256
-    use_dcn = True
+    use_dcn = False
     points_per_poly = commen.points_per_poly
     down_ratio = commen.down_ratio
     init_stride = 10.

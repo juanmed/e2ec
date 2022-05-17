@@ -349,8 +349,9 @@ class DeformConv(nn.Module):
             nn.ReLU(inplace=True)
         )
         if use_dcn:
-            from .dcn_v2 import DCN
-            self.conv = DCN(chi, cho, kernel_size=(3, 3), stride=1, padding=1, dilation=1, deformable_groups=1)
+            #from .dcn_v2 import DCN
+            from mmcv.ops import ModulatedDeformConv2dPack as DCN
+            self.conv = DCN(chi, cho, kernel_size=(3, 3), stride=1, padding=1, dilation=1, deform_groups=1)
             #from mmcv.ops import ModulatedDeformConv2dPack as DCN
             #self.conv = DCN(chi, cho, kernel_size=(3, 3), stride=1, padding=1, dilation=1, deform_groups=1)
         else:
@@ -390,7 +391,7 @@ class IDAUp(nn.Module):
 
 
 class DLAUp(nn.Module):
-    def __init__(self, startp, channels, scales, in_channels=None):
+    def __init__(self, startp, channels, scales, in_channels=None, use_dcn=True):
         super(DLAUp, self).__init__()
         self.startp = startp
         if in_channels is None:
@@ -402,7 +403,7 @@ class DLAUp(nn.Module):
             j = -i - 2
             setattr(self, 'ida_{}'.format(i),
                     IDAUp(channels[j], in_channels[j:],
-                          scales[j:] // scales[j]))
+                          scales[j:] // scales[j], use_dcn=use_dcn))
             scales[j + 1:] = scales[j]
             in_channels[j + 1:] = [channels[j] for _ in channels[j + 1:]]
 
@@ -436,7 +437,7 @@ class DLASeg(nn.Module):
         self.base = globals()[base_name](pretrained=pretrained)
         channels = self.base.channels
         scales = [2 ** i for i in range(len(channels[self.first_level:]))]
-        self.dla_up = DLAUp(self.first_level, channels[self.first_level:], scales)
+        self.dla_up = DLAUp(self.first_level, channels[self.first_level:], scales, use_dcn=use_dcn)
 
         if out_channel == 0:
             out_channel = channels[self.first_level]
