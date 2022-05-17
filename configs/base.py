@@ -43,7 +43,7 @@ class model(object):
     evolve_iters = 3
 
 class train(object):
-    save_ep = 5
+    save_ep = 10
     eval_ep = 5
     optimizer = {'name': 'adam', 'lr': 1e-4,
                  'weight_decay': 5e-4,
