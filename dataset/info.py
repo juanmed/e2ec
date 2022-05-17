@@ -1,13 +1,13 @@
 
 class DatasetInfo(object):
     dataset_info = {
-        'coco_train': {
+        'coca_train': {
             'name': 'coco',
             'image_dir': 'data/coco/train2017',
             'anno_dir': 'data/coco/annotations/instances_train2017.json',
             'split': 'train'
         },
-        'coco_val': {
+        'coca_val': {
             'name': 'coco',
             'image_dir': 'data/coco/val2017',
             'anno_dir': 'data/coco/annotations/instances_val2017.json',
@@ -66,5 +66,17 @@ class DatasetInfo(object):
             'image_dir': 'data/cityscapes/leftImg8bit/test', 
             'anno_dir': 'data/cityscapes/annotations/test', 
             'split': 'test'
+        },
+        'coco_train' : {
+            'name': 'coco',
+            'image_dir' : '/home/rise/Downloads/unloading_datasets/results/merged/images/',
+            'anno_dir' : '/home/rise/Downloads/unloading_datasets/results/merged/annotations/train.json',
+            'split' : 'train'
+        },
+        'coco_val' : {
+            'name': 'coco',
+            'image_dir' : '/home/rise/Downloads/unloading_datasets/results/merged/images/',
+            'anno_dir' : '/home/rise/Downloads/unloading_datasets/results/merged/annotations/val.json',
+            'split' : 'val'
         }
     }
